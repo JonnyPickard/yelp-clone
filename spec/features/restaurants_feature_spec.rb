@@ -60,7 +60,7 @@ feature 'restaurants' do
 
   context 'deleting restaurants' do
 
-    before {Restaurant.create name: 'KFC'}
+    before { Restaurant.create name: 'KFC'}
 
     scenario 'removes a restaurant when a user clicks a delete link' do
       visit '/restaurants'
