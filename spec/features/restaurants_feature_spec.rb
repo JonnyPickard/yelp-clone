@@ -22,6 +22,16 @@ feature 'restaurants' do
   end
 
   context 'creating restaurants' do
+
+    before do
+      visit('/')
+      click_link('Sign up')
+      fill_in('Email', with: 'test@example.com')
+      fill_in('Password', with: 'testtest')
+      fill_in('Password confirmation', with: 'testtest')
+      click_button('Sign up')
+    end
+
     scenario 'prompts user to fill out a form, then displays the new restaurant' do
       visit '/restaurants'
       click_link 'Add a restaurant'
@@ -57,7 +67,15 @@ feature 'restaurants' do
 
   context 'editing restaurants' do
 
-    before { Restaurant.create name: 'KFC' }
+    before do
+      Restaurant.create name: 'KFC'
+      visit('/')
+      click_link('Sign up')
+      fill_in('Email', with: 'test@example.com')
+      fill_in('Password', with: 'testtest')
+      fill_in('Password confirmation', with: 'testtest')
+      click_button('Sign up')
+    end
 
     scenario 'let a user edit a restaurant' do
       visit '/restaurants'
@@ -71,13 +89,30 @@ feature 'restaurants' do
 
   context 'deleting restaurants' do
 
-    before { Restaurant.create name: 'KFC'}
+    before do
+      Restaurant.create name: 'KFC'
+      visit('/')
+      click_link('Sign up')
+      fill_in('Email', with: 'test@example.com')
+      fill_in('Password', with: 'testtest')
+      fill_in('Password confirmation', with: 'testtest')
+      click_button('Sign up')
+    end
 
     scenario 'removes a restaurant when a user clicks a delete link' do
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
+    end
+  end
+
+  context 'requires user authentication' do
+    scenario 'user not signed in' do
+      visit '/restaurants'
+      expect(page).not_to have_link 'Add restaurant'
+      expect(page).not_to have_link 'Delete restaurant'
+      expect(page).not_to have_link 'Update restaurant'
     end
   end
 end
