@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :restaurants
+  has_many :reviews, dependent: :destroy
   has_many :reviewed_restaurants, through: :reviews, source: :restaurant
-  has_many :reviews
 
 
   devise :database_authenticatable, :registerable,
@@ -19,6 +20,10 @@ class User < ActiveRecord::Base
        user.email = data["email"] if user.email.blank?
      end
    end
+ end
+
+ def has_reviewed?(restaurant)
+   reviewed_restaurants.include? restaurant
  end
 
 
