@@ -16,6 +16,6 @@ describe 'review feature specs' do
     leave_review('So so', '3')
     sign_up
     leave_review('Great', '5')
-    expect(page).to have_content('Average rating: 4')
+    expect(page).to have_content('Average rating: ★★★★☆')
   end
 end
