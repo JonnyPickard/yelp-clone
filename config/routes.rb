@@ -6,8 +6,14 @@ Rails.application.routes.draw do
   #   delete 'sign_out', :to => 'devise/sessions#destroy'#, :as => :destroy_user_session
   # end
 
-  resources :restaurants do
-    resources :reviews
+  # resources :restaurants do
+  #   resources :reviews
+  # end
+
+  resources :restaurants, shallow: true do
+    resources :reviews do
+      resources :endorsements
+    end
   end
 
   root to: "restaurants#index"
