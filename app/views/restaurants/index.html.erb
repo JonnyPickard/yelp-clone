@@ -17,8 +17,8 @@
               <%= review.thoughts %>, <strong><%= review.rating %></strong>/5
               <h3>Average rating: <%= star_rating(restaurant.average_rating) %></h3>
               <%= link_to "Delete review", review_path(review), method: :delete %>
-              <p><%= pluralize review.endorsements.count, 'endorsement' %></p>
-              <%= link_to "Endorse Review", review_endorsements_path(review), method: :post %>
+              <%= link_to "Endorse Review", review_endorsements_path(review), class: 'endorsements-link' %>
+              <span class="endorsements_count"><%= review.endorsements.count %> </span><%= ' endorsement'.pluralize(review.endorsements.count) %>
             </li>
           <% end %>
         </ul>
