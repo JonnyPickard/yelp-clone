@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="UTF-8"/>
 </head>
 <body>
   <% if @restaurants.any? %>
@@ -15,7 +15,7 @@
           <% restaurant.reviews.each do |review| %>
             <li>
               <%= review.thoughts %>, <strong><%= review.rating %></strong>/5
-              <h3>Average rating: <%= restaurant.average_rating.to_i %></h3>
+              <h3>Average rating: <%= star_rating(restaurant.average_rating) %></h3>
               <%= link_to "Delete review", restaurant_review_path(review.restaurant_id, review.id), method: :delete %>
             </li>
           <% end %>
